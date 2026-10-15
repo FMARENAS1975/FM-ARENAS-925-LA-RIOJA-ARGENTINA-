@@ -12,6 +12,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Menú adaptable para celulares.
   if (menuToggle && navMenu) {
+    const closeMenu = () => {
+      navMenu.classList.remove("open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Abrir menú");
+    };
+
     menuToggle.addEventListener("click", () => {
       const isOpen = navMenu.classList.toggle("open");
 
@@ -23,19 +29,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     navMenu.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        navMenu.classList.remove("open");
-        menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.setAttribute("aria-label", "Abrir menú");
-      });
+      link.addEventListener("click", closeMenu);
     });
 
     // Cerrar el menú con Escape.
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape") {
-        navMenu.classList.remove("open");
-        menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.setAttribute("aria-label", "Abrir menú");
+        closeMenu();
       }
     });
   }
